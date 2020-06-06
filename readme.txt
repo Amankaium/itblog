@@ -1,0 +1,1 @@
+install sqlite and requements.txt
