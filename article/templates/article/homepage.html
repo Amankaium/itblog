@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
     <h2>Статьи:</h2>
     <hr>
     {% for a in articles %}
@@ -11,22 +10,6 @@
         <br>
         <b>Прочитано: {{ a.readers.count }}</b>
         <hr>
-    {% endfor %}
-    <hr><hr>
-
-    <h3>Статьи автова {{ wind }}</h3>
-    <ol>
-    {% for article in wind.articles.all %}
-        <li>{{ article.title }}</li>
-    {% endfor %}
-    </ol>
-    <hr>
-    <h3>Прочитано пользователем {{ wind }}</h3>
-    <ol>
-    {% for article in wind.user.articles.all %}
-        <li>{{ article.title }}</li>
-    {% endfor %}
-    </ol>
-  
+    {% endfor %}  
 
 {% endblock %}

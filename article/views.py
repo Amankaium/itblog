@@ -1,13 +1,21 @@
 from django.shortcuts import render
 from .models import Article, Author
+from django.contrib.auth.models import User
 
 
 def homepage(request):
     articles = Article.objects.all()
-    wind = Author.objects.get(id=1)
 
     return render(request, "article/homepage.html",
-        {
-            "articles": articles,
-            "wind": wind
-        })
+        {"articles": articles})
+
+
+def authors(request):
+    authors = Author.objects.all()
+    return render(request, "article/authors.html", {"authors": authors})
+
+
+def users(request):
+    context = {}
+    context["users_all"] = User.objects.all()
+    return render(request, "article/users.html", context)
