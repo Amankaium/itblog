@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>Псевдоним: {{ author.name }}</h2>
+    <h3>Количество публикаций: {{ author.articles.count }}</h3>
+
+{% endblock %}
