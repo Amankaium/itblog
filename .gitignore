@@ -4,3 +4,4 @@ __pycache__/
 .vscode
 sqlite3.exe
 venv
+media

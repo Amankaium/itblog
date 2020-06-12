@@ -5,9 +5,13 @@ from .forms import *
 
 def homepage(request):
     articles = Article.objects.filter(active=True)
+    # articles = Article.objects.raw("SELECT * FROM article_article")
 
-    return render(request, "article/homepage.html",
-        {"articles": articles})
+    return render(
+        request,
+        "article/homepage.html",
+        {"articles": articles}
+    )
 
 
 def article(request, id):
@@ -36,6 +40,18 @@ def add_article(request):
     return render(request, "article/add_article.html", {"form": form})
 
 
+def edit_article(request, id):
+    article = Article.objects.get(id=id)
+
+    if request.method == "POST":
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            form.save()
+            return render(request, "success.html")
+
+    form = ArticleForm(instance=article)
+    return render(request, "article/add_article.html", {"form": form})
+
 def authors(request):
     authors = Author.objects.all()
     return render(request, "article/authors.html", {"authors": authors})
@@ -54,12 +70,10 @@ def add_author(request):
         return render(request, "article/add_author.html", context)
     
     elif request.method == "POST":
-        name = request.POST.get("name")
-        user_id = request.POST.get("user")
-        user = User.objects.get(id=user_id)
-        author = Author(name=name, user=user)
-        author.save()
-        return render(request, "success.html")
+        form = AuthorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "success.html")
 
 
 def users(request):
