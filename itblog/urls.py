@@ -30,4 +30,6 @@ urlpatterns = [
     path("article/<int:id>/", article, name="article"),
     path("article/edit/<int:id>/", edit_article, name="edit-article"),
     path("article/add/", add_article, name="add-article"),
+    path("comment/<int:id>/edit/", edit_comment, name="edit-comment"),
+    path("comment/<int:id>/delete/", delete_comment, name="delete-comment")
 ]   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

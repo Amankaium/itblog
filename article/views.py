@@ -15,17 +15,29 @@ def homepage(request):
 
 
 def article(request, id):
-    if request.method == "POST":
-        article = Article.objects.get(id=id)
-        article.active = False
-        article.save()
-        return redirect(homepage)
-
     article = Article.objects.get(id=id)
+    if request.method == "POST":
+        if "delete_btn" in request.POST:
+            article.active = False
+            article.save()
+            return redirect(homepage)
+        elif "comment_btn" in request.POST:
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = Comment()
+                comment.user = request.user
+                comment.article = article
+                comment.text = form.cleaned_data["text"]
+                comment.save()        
+
+    context = {}
+    context["article"] = article
+    context["form"] = CommentForm()
+    
     return render(
         request,
         "article/article.html",
-        {"article": article}
+        context
     )
 
 
@@ -80,3 +92,19 @@ def users(request):
     context = {}
     context["users_all"] = User.objects.all()
     return render(request, "article/users.html", context)
+
+def edit_comment(request, id):
+    comment = Comment.objects.get(id=id)
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            return render(request, "success.html")
+
+    form = CommentForm(instance=comment)
+    return render(request, "article/comment_form.html", {"form": form})
+
+
+def delete_comment(request, id):
+    Comment.objects.get(id=id).delete()
+    return render(request, "success.html")
