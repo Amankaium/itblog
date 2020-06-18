@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .forms import *
 
 def homepage(request):
-    articles = Article.objects.filter(active=True)
+    articles = Article.objects.filter(active=True).order_by("likes")
     # articles = Article.objects.raw("SELECT * FROM article_article")
 
     return render(
@@ -16,6 +16,8 @@ def homepage(request):
 
 def article(request, id):
     article = Article.objects.get(id=id)
+    article.views += 1
+    article.save()
     if request.method == "POST":
         if "delete_btn" in request.POST:
             article.active = False
