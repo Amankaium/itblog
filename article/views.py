@@ -1,21 +1,19 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, \
+    redirect
 from .models import Article, Author
 from django.contrib.auth.models import User
 from .forms import *
+from django.db.models import Q
+
 
 def homepage(request):
     if "key_word" in request.GET:
-        key = request.GET.get("key_word")
-        articles = Article.objects.filter(active=True).filter(
-        title__contains=key) | Article.objects.filter(active=True).filter(
-            text__contains=key) | Article.objects.filter(active=True).filter(
-                tag__name__contains=key) | Article.objects.filter(active=True).filter(
-                    comments__text__contains=key) | Article.objects.filter(active=True).filter(
-                        picture__contains=key) | Article.objects.filter(active=True).filter(
-                            readers__username__contains=key)
-    
+        key = request.GET.get("key_word")  
+        articles = Article.objects.filter(Q(active=True), 
+            Q(title__contains=key) | Q(text__contains=key) | Q(comments__text__contains=key)
+        )
         articles = articles.distinct()
-        articles = articles.order_by("title")
+
     else:
         articles = Article.objects.filter(active=True)
 

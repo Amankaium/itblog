@@ -4,19 +4,21 @@
 {% block content %}
     {% include 'includes/success.html' %}
     <h2>{{ article.title }}</h2>
-    {% for tag in article.tag.all %}
-        <button>{{ tag.name }}</button>
-    {% endfor %}
-    <br>
+    {% if article.tag.all|length >= 1 and article.tag.all|length < 10 %}
+        {% for tag in article.tag.all %}
+            <button>{{ tag.name }}</button>
+        {% endfor %}
+        <br>
+    {% endif %}
     {% if article.picture %}
         <img width="80%" src="{{ article.picture.url }}">
     {% endif %}
-    <div>{{ article.text }}</div>
+    <div>{{ article.text|linebreaks }}</div>
     <i>Автор: {{ article.author }}</i>
     <h3>Понравилось: {{ article.likes }}</h3>
     <h4>Прочитало: {{ article.readers.count }}</h4>
     <h4>Просмотров: {{ article.views }}</h4>
-    <h4>Дата публикации: {{ article.publication_date }}</h4>
+    <h4>Дата публикации: {{ article.publication_date|date:"Y-m-d" }}</h4>
     <h4>Последнее изменение: {{ article.updated_date }}</h4>
     <ul>
     {% for reader in article.readers.all %}
@@ -54,3 +56,15 @@
         <hr>
     {% endfor %}
 {% endblock %}
+
+
+<h2>Правила пользования сайта</h2>
+    
+<div><p>Не ругаться,<br>не кусаться,<br>не кричать,<br>капс не повышать.</p></div>
+<button>rules</button>
+<button>odmen</button>
+<i>Автор: odmen</i>
+<h3>Понравилось: 3</h3>
+<h4>Прочитало: 1</h4>
+<h4>Просмотров: 14</h4>
+<h4>Дата публикации: 2020-06-18</h4>
