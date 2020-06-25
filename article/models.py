@@ -34,6 +34,11 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        verbose_name = "статью"
+        verbose_name_plural = "Статьи"
+
 
 
 class Author(models.Model):
@@ -46,6 +51,10 @@ class Author(models.Model):
     
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "автора"
+        verbose_name_plural = "Авторы"
 
 
 class Comment(models.Model):
@@ -67,3 +76,7 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name = "тэг"
+        verbose_name_plural = "Тэги"
