@@ -10,7 +10,8 @@ def homepage(request):
     if "key_word" in request.GET:
         key = request.GET.get("key_word")  
         articles = Article.objects.filter(Q(active=True), 
-            Q(title__contains=key) | Q(text__contains=key) | Q(comments__text__contains=key)
+            Q(title__contains=key) | Q(text__contains=key) | Q(comments__text__contains=key) \
+                | Q(author__name__contains=key) | Q(author__user__username=key)
         )
         articles = articles.distinct()
 

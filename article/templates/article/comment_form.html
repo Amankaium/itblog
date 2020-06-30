@@ -2,6 +2,7 @@
 {% load bootstrap4 %}
 
 {% block content %}
+    {% include 'includes/security_message.html' %}
     <h2>Форма комментария</h2>
     <form method="POST">
         {% csrf_token %}

@@ -18,7 +18,7 @@
     <h3>Понравилось: {{ article.likes }}</h3>
     <h4>Прочитало: {{ article.readers.count }}</h4>
     <h4>Просмотров: {{ article.views }}</h4>
-    <h4>Дата публикации: {{ article.publication_date|date:"Y-m-d" }}</h4>
+    <h4>Дата публикации: {{ article.publication_date|date:"d.m.Y H:i" }}</h4>
     <h4>Последнее изменение: {{ article.updated_date }}</h4>
     <ul>
     {% for reader in article.readers.all %}
