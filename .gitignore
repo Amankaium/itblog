@@ -6,3 +6,4 @@ sqlite3.exe
 venv
 media
 static
+!article/static
