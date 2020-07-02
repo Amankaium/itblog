@@ -25,6 +25,13 @@ def homepage(request):
     )
 
 
+def articles(request, tag):
+    context = {}
+    tag = Tag.objects.get(name=tag)
+    context["articles"] = Article.objects.filter(tag=tag)
+    return render(request, "article/articles.html", context)
+
+
 def article(request, id):
     article = Article.objects.get(id=id)
     article.views += 1

@@ -4,10 +4,11 @@
 {% block content %}
     {% include 'includes/success.html' %}
     <h2>{{ article.title }}</h2>
-    {% if article.tag.all|length >= 1 and article.tag.all|length < 10 %}
+    {% if article.tag %}
         {% for tag in article.tag.all %}
-            <button>{{ tag.name }}</button>
+            <a class="btn btn-info" href="{% url 'articles' tag.name %}">{{ tag.name }}</a>
         {% endfor %}
+        <br>
         <br>
     {% endif %}
     {% if article.picture %}
